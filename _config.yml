@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Tanya's Website
+title: My Data Science Blog
 email: tanya.nadkarni@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Welcome to my blog site!
@@ -26,12 +26,17 @@ baseurl: "/my-blog" # the subpath of your site, e.g. /blog
 url: "https://tnadkarni.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: tanya_nadkarni
 github_username:  tnadkarni
+linkedin_username: tanya-nadkarni-b9b78b119
 
 # Build settings
 # Removed minima theme as it is now a regular theme
 # theme: minima
 plugins:
   - jekyll-feed
+author: Tanya Nadkarni
+
+# New fields
+ 
 
 # Exclude from processing.
 # The following items will not be processed, by default.
