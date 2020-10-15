@@ -50,16 +50,12 @@ class DecisionTree(object):
 Prior to building the <strong>growTree</strong> function, let's go over ID3 basics.
 Assume a training set T with n predictors. We are trying to predict a binary outcome 0/1 (Success/Failure) 
 We randomly choose m predictors and iterate over them. For each predictor, choose the split that gives highest information gain. Return a tree with that predictor as node.
-Information Gain is calculated as decrease in entropy after a data-set split on an attribute. Constructing a decision tree is based on finding the attribute that returns the highest information gain.
-Entropy is a measure of randomness of the information being processed and is calculated as
-$$ 
-E(S) = \sum_{i=1}^c -p_ilog_2p_i
-$$
+
 
 
 Start by taking care of some exceptions-
-1. If T is empty return single node with value 0/Failure
-2. If T consists of obervations with a singel outcome, return a node with that outcome value
+-If T is empty return single node with value 0/Failure
+-If T consists of obervations with a singel outcome, return a node with that outcome value
 
 {% highlight python%}
 def growTree(self, rows):
@@ -72,18 +68,7 @@ def growTree(self, rows):
       if len(set(rows[:,-1])) == 1:
         return self.Node(res = np.array([rows[0,-1]]))
         #if all class labels same, return root node set to that label
-{% endhighlight %}
 
-
-Lets
-
-
-
-We randomly choose m predictors and iterate over them. For each predictor, choose the split that gives highest information gain. 
-
-
-
-{% highlight python%}
       n_predictors = len(rows[0])-1
 
       #randomly choose m = sqrt(n) predictors
@@ -116,9 +101,54 @@ We randomly choose m predictors and iterate over them. For each predictor, choos
         return self.Node(res = rows[:,-1]) #stop building tree and assign result to leaf node
 {% endhighlight %}
 
+For our purpose, let's consider m to be the square root of n. While iterating over the m predictors we have used the following functions-
+a. partition_classes - partition the dataset at a split point for a predictor
+b. entropy - computes entropy
+Entropy is a measure of randomness of the information being processed and is calculated as
+$$ E(S) = \sum_{i=1}^c -p_ilog_2p_i $$
+<!--Add more here-->
+
+c. information_gain - Information Gain is calculated as decrease in entropy after a data-set split on an attribute. Constructing a decision tree is based on finding the attribute that returns the highest information gain. 
+This will calculate difference in entropy before and after splitting the dataset to calculate information gain
+
+Define these functions in a python file called util.py - 
 
 
+{% highlight python%}
+from scipy import stats
+import numpy as np
+from math import log
+# This method computes entropy for information gain
+def entropy(class_y):
 
+    class_y = np.array(class_y)
+    p1 = float(sum(class_y))/len(class_y)
+    p0 = 1-p1
+    try:
+        h = -p1*log(p1,2) - p0*log(p0,2)
+    except ValueError:
+        h = 0
+    return h
 
+def partition_classes(rows, pred, split_point):
+    #Partition the dataset by the split point for specified predictor
+    
+    part1 = rows[rows[:, pred] <= split_point]
 
+    part2 = rows[rows[:, pred] > split_point]
+
+    return [part1, part2]
+    
+def information_gain(previous_y, current_y):
+    """Compute the information gain from partitioning the previous_classes
+    into the current_classes using entropy function defined earlier.
+    """
+    new_ent = 0.0
+    size  = len(previous_y)
+    for i in range(len(current_y)):
+        new_ent = new_ent + entropy(current_y[i])*len(current_y[i])/size
+    return entropy(previous_y)-new_ent
+{% endhighlight %}
+
+Now that we have defined the Decision Tree class 
 
