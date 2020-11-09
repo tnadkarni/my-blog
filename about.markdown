@@ -8,9 +8,8 @@ Hey there! My name is Tanya Nadkarni. Welcome to my website. I am a Marketing An
 
 I am specifically interested in developing coding skills in Python, R, SQL and concepts in Machine Learning and Statistics for application in Predictive Modeling and Visualization projects.
 
-Here's a link to my [Resume]({{ site.url }}{{ site.baseurl}}/assets/Resume_TanyaN.pdf)
+Here's a link to my [Resume]({{ site.url }}{{ site.baseurl}}/assets/Resume_TanyaN.pdf). Path to my LinkedIn profile can be found below. 
 
 <img src="{{ site.url }}{{ site.baseurl}}/assets/images/dp.jpg" width="300" height="250">
 
 Thanks for stopping by!
-

@@ -525,7 +525,7 @@ I was having some trouble linking to an external file so in this case, the data 
 
 <img src="{{ site.url }}{{ site.baseurl}}/assets/images/linksdata.png">
 
-Compute the distinct nodes by iterating over the links data. We have added a D3 force function with a repulsion charge and a callback function <i>tick</i> for every time the simulation iterates. 
+Get the distinct nodes by iterating over the links data. We have added a D3 force function with a charge which simulates electrostatic effects across all nodes - it is negative since we want a repulsing force. We also add a callback function <i>tick</i> for every time the simulation iterates or when user interacts with the chart. 
 
 {% highlight javascript%}
 var nodes = {};
@@ -547,7 +547,8 @@ var force = d3.layout.force()
 });
 {% endhighlight%}
 
-Create the link paths by binding and color based on 'value' field. Join the node data to circle elements, update the radius based on number of connections in the network and apply data labels.
+Create the link paths by binding the data to the <i>path</i>> SVG element which is the generic element to define a shape. The seemingly arbitrary numbers for the d attribute are defining the curvy lines between our nodes.
+The color of the link is set based on the 'value' field.
 
 {% highlight javascript%}
 svg.append("svg:defs").selectAll("marker")
@@ -562,7 +563,7 @@ svg.append("svg:defs").selectAll("marker")
     .attr("orient", "auto")
   .append("svg:path")
     .attr("d", "M0,-5L10,0L0,5");
-// add the links and the arrows
+// add the links
 var path = svg.append("svg:g").selectAll("path")
     .data(force.links())
   .enter().append("svg:path")
@@ -572,6 +573,30 @@ path.style("stroke", function(link){
   if (link.value >= 1 & link.value <= 2) {return "green";}
   if (link.value > 2) {return "red";}
 });
+{% endhighlight%}
+
+We define the D3 nodes and append to circle elements. We allow the nodes to be dragged by the user and also add a functionality to fix the nodes in place when double-clicked.
+
+{% highlight javascript%}
+// define the nodes
+var node = svg.selectAll(".node")
+    .data(force.nodes())
+    .enter().append("g")
+    .attr("class", "node")
+    .call(force.drag)
+    .on("dblclick", function(d){ 
+        if(d.fixed == false) {
+          d3.select(this).selectAll("circle")
+          .classed("pin", true)
+          .classed("fixed", d.fixed = true);
+        }
+        else {
+          d3.select(this).selectAll("circle")
+          .classed("pin", false)
+          .classed("fixed", d.fixed = false);
+        }
+        });
+// add the nodes
 node.append("circle")
     .attr("r", function(d){
         return (links.filter(function(p) {
@@ -583,7 +608,7 @@ var label = node.append("text")
             .attr("dx", 10);
 {% endhighlight%}
 
-Finally define the tick function.
+Finally define the tick function - this should update cordinates of the node and text labels. dx and dy are relative positiions of text to the nodes.
 
 {% highlight javascript%}
 function tick() {
@@ -603,3 +628,7 @@ function tick() {
 		    return "translate(" + d.x + "," + d.y + ")"; });
 };
 {% endhighlight%}
+
+We have used D3 to create an interactive force directed layout graph with additional customizations. Hopefully this has convinced you to harness the visualization power of D3 for your next analysis!
+
+This programming assignment was submitted as coursework for <i>[CSE6242](http://poloclub.gatech.edu/cse6242/2016fall/) Data and Visual Analytics (Fall 2016), Georgia Tech College of Computing</i>. 

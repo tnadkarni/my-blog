@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Clustering of handwritten digits"
+title:  "Clustering of handwritten digits using Expectation-Maximization"
 date:   2020-11-02 13:20
 ---
 
@@ -169,9 +169,11 @@ for (i in c(1:dim(obs_dll)[1])){
 }
 {% endhighlight %}
 
-Log likelihood (plotted above) is highest and AIC lowest when q=6 so we go with number of PCs = 6 for our final model.
+Log likelihood is found to be highest and AIC lowest when q=6 so we go with number of PCs = 6 for our final model.
 
-To observe how well the clustering model works and how well the cluster center is defined, we visuale 5 entries from each cluster formed along with their cluster centers - 
+<img src="{{ site.url }}{{ site.baseurl}}/assets/images/aic.png">
+
+To observe how well the clustering model works and how well the cluster center is defined, we visualize 5 entries from each cluster formed along with their cluster centers - 
 
 {% highlight R%}
 #visualization
@@ -193,6 +195,8 @@ for(kk in c(1:k)) {
 
 To evaluate the accuracy of our clustering, we identify the most occuring number in each of our clusters and evaluate how many were classified correctly (same as the identified number).
 
+<img src="{{ site.url }}{{ site.baseurl}}/assets/images/clusters.png">
+
 {% highlight R%}
 #calculating the miscategorization rate
 
@@ -212,7 +216,7 @@ overallMiscategorizeRate = 1-(total_correct)/N
 print(overallMiscategorizeRate)
 {% endhighlight %}
 
-Miscategorization rate is found to be 33%.
+Miscategorization rate is found to be 33%. This is not too surprising as we do see that while 6 and 0 are usually identified correctly,some numbers like 5 and 4 are confused quite often with 9 and 7 respectively.
 
 If you are looking for a simple explanation of the EM algorithm in a video format, I would recommend this [lecture](http://bit.ly/EM-alg) which I partially summarized in my explanation above.
 Thanks for reading!
