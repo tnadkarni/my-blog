@@ -2,7 +2,6 @@
 layout: post
 title:  "Gentle intro to D3"
 date:   2020-10-15 15:47:00
-category: Articles
 ---
 
 D3.js is a javascript visualization library that allows for creation of interactive and highly custom visualizations. Most people tend to dread it after being introduced due to a steep learning curve but for anyone interested in Data Viz with some background in Javascript, it is definitely worth picking up as it provides visual creative freedom like no other tool in this domain.
@@ -71,5 +70,5 @@ Now let's add a graphic to our SVG-
 {% endhighlight%}
 
 <strong>rect</strong> is a predefined SVG shape element to create a rectangle graphic. To reflect the changes, simply save your html file and refresh your web page. The final visual should look like this-
-<img src="{{ site.url }}{{ site.baseurl}}/blog-articles/assets/images/svg_rect.png">
-That's it for the gentle introduction. The power of D3 will be better understood in the next article which talks about creating a force layout graph from JSON data. 
+<img src="{{ site.url }}{{ site.baseurl}}/assets/images/svg_rect.png">
+That's it for the gentle introduction. The power of D3 will be better understood in the next article which goes over the creation of a force layout graph. 

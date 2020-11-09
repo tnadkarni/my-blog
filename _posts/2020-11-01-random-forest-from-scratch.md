@@ -2,7 +2,6 @@
 layout: post
 title:  "Creating a Random Forest from scratch"
 date:   2020-11-01 21:20
-category: Projects
 ---
 
 Tree-based methods segment the predictor space based on splitting rules and can be applied to both Classification and Regression. In terms of accuracy, these models tend to have high variance - this means that the results change significantly when using different training sets and thus are not very reliable for prediction. To overcome this, we use ensemble classifiers which fit many individual classifiers and combine the result to yield a single prediction. One such ensemble classifier is the Random Forest.

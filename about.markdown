@@ -10,7 +10,7 @@ I am specifically interested in developing coding skills in Python, R, SQL and c
 
 Here's a link to my [Resume]({{ site.url }}{{ site.baseurl}}/assets/Resume_TanyaN.pdf)
 
-<img src="{{ site.url }}{{ site.baseurl}}/assets/dp.jpg" width="300" height="250">
+<img src="{{ site.url }}{{ site.baseurl}}/assets/images/dp.jpg" width="300" height="250">
 
 Thanks for stopping by!
 
